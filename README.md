@@ -1,4 +1,4 @@
-# 💬 Multi-User Chat Room Application
+# 💬 Multi-User Chat Room & Messaging Platform
 
 ![Project Status](https://img.shields.io/badge/status-active-brightgreen)
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
