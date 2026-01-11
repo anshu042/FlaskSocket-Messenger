@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Multi-User Chat Room Application</title >
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link rel="stylesheet" href="/static/auth.css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+
+<button class="theme-toggle" id="theme-btn" title="Toggle Theme">
+    <i class="fa fa-moon-o"></i>
+</button>
+
+<h1 class="welcome-heading">Welcome in Multi-User Chat Room</h1>
+<div class="wrapper">
+    <div class="title-text">
+        <div class="title login">LOGIN</div>
+        <div class="title signup">SIGNUP</div>
+    </div>
+    <div class="form-container">
+        <div class="slide-controls">
+            <input type="radio" name="slide" id="login" checked>
+            <input type="radio" name="slide" id="signup">
+            <label for="login" class="slide login">Login</label>
+            <label for="signup" class="slide signup">Signup</label>
+            <div class="slider-tab"></div>
+        </div>
+        <div class="form-inner">
+            <form action="{{ url_for('views.login') }}" method="POST" class="login">
+                <div class="field">
+                    <input type="email" name="email" placeholder="Email Address" required>
+                </div>
+                <div class="field">
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+                <div class="pass-link"><a href="#">Forgot password?</a></div>
+                <div class="field btn">
+                    <div class="btn-layer"></div>
+                    <input type="submit" value="Log in">
+                </div>
+                <div class="signup-link">Not a member? <a href="">SignUp now</a></div>
+            </form>
+            <form action="{{ url_for('views.register') }}" method="POST" class="signup">
+    <div class="field">
+        <input type="text" name="username" placeholder="Username" required>
+    </div>
+    <div class="field">
+        <input type="email" name="email" placeholder="Email Address" required>
+    </div>
+    <div class="field">
+        <input type="password" name="password" placeholder="Password" required>
+    </div>
+    <div class="field btn">
+        <div class="btn-layer"></div>
+        <input type="submit" value="Sign up">
+    </div>
+</form>
+        </div>
+    </div>
+</div>
+<div style="color: var(--text-main); font-weight: 500; font-size: 0.9rem; opacity: 0.8;">
+    Designed & Developed by Anshu Kushwaha
+</div>
+<script>
+    const loginForm = document.querySelector("form.login");
+    const signupBtn = document.querySelector("label.signup");
+    const loginBtn = document.querySelector("label.login");
+    const signupLink = document.querySelector("form .signup-link a");
+
+    signupBtn.onclick = (() => {
+        loginForm.style.marginLeft = "-50%";
+    });
+
+    loginBtn.onclick = (() => {
+        loginForm.style.marginLeft = "0%";
+    });
+
+    signupLink.onclick = (() => {
+        signupBtn.click();
+        return false;
+    });
+
+    const themeBtn = document.getElementById('theme-btn');
+    const themeIcon = themeBtn.querySelector('i');
+    
+    function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        if (theme === 'light') {
+            themeIcon.classList.remove('fa-moon-o');
+            themeIcon.classList.add('fa-sun-o');
+        } else {
+            themeIcon.classList.remove('fa-sun-o');
+            themeIcon.classList.add('fa-moon-o');
+        }
+    }
+
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
+
+    themeBtn.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        setTheme(newTheme);
+    });
+</script>
+</body>
+</html>
